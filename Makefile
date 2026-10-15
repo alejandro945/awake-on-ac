@@ -20,7 +20,7 @@ status:
 
 # Validates the scripts and the rendered templates without installing them
 lint:
-	shellcheck scripts/*.sh
+	shellcheck -x scripts/*.sh
 	sed "s/__USER__/$$(id -un)/g" sudoers/awake-on-ac.template > build/sudoers.check
 	/usr/sbin/visudo -cf build/sudoers.check
 	sed -e "s|__BIN__|/tmp/awake-on-ac|g" -e "s|__LOG__|/tmp/awake-on-ac.log|g" \
