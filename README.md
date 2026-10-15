@@ -39,7 +39,7 @@ The whole agent is one file: [`src/awake-on-ac.swift`](src/awake-on-ac.swift).
 
 Repeat these steps on every MacBook that should stay awake. The agent is built on each Mac, so there are no downloaded binaries to trust.
 
-1. **Open Terminal on that Mac**, logged in as the user who works on it (not root).
+1. **Open Terminal on that Mac** (Terminal.app or iTerm), logged in as the user who works on it (not root). Avoid terminal panes embedded in other apps: some of them cannot read the `sudo` password, and the installer stops at the sudoers step.
 
 2. **Clone the repository:**
 
@@ -113,6 +113,7 @@ It stops the agent, restores normal sleep, and removes the binary, the LaunchAge
 | The log says `pmset exited with 1` | The sudoers rule is missing or for another user: run `./scripts/install.sh` again |
 | It still sleeps when you switch the KVM | Run `status.sh` with the charger connected: `SleepDisabled` must be `1`. If it is `0`, the agent is not running or the charger is not detected |
 | No notifications | Allow Script Editor in System Settings → Notifications |
+| `sudo: a password is required` during install | The terminal cannot read passwords: run the installer from Terminal.app or iTerm |
 | Another app also manages sleep (Amphetamine, caffeinate scripts) | Disable it: two tools changing `disablesleep` will fight |
 
 ## Alternatives
