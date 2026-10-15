@@ -1,0 +1,4 @@
+# awake-on-ac: lets __USER__ toggle `pmset disablesleep` without a password.
+# Only these two exact commands; every other sudo command still asks for the password.
+# Installed by scripts/install.sh as /etc/sudoers.d/awake-on-ac (root:wheel, 0440).
+__USER__ ALL=(root) NOPASSWD: /usr/bin/pmset -a disablesleep 0, /usr/bin/pmset -a disablesleep 1

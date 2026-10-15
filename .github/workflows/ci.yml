@@ -1,0 +1,33 @@
+# Builds the agent on macOS, runs it in dry-run mode (no system changes) and lints the scripts
+# and the rendered sudoers rule and LaunchAgent.
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Build and smoke test
+        run: make test
+
+      - name: Install ShellCheck
+        run: brew install shellcheck
+
+      - name: Lint
+        run: make lint
